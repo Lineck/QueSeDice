@@ -1,0 +1,44 @@
+{% extends  'base.html'%}
+
+{% block content%}
+
+    <div class="container">
+    <h1>Resultados para "{{ term }}"</h1>
+    <h2>Fecha de búsqueda: {{ fecha }}</h2>
+    {% if tabla %}
+        <div>
+            {{ tabla|safe }}
+        </div>
+    {% else %}
+        <p>No hay datos para mostrar.</p>
+    {% endif %}
+   <br>
+
+    <!-- Controles de paginación -->
+    <nav aria-label="Paginación">
+        <ul class="pagination">
+            {% if page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="/view_results/{{ busqueda_id }}?page={{ page - 1 }}">Anterior</a>
+                </li>
+            {% endif %}
+            {% for p in range(1, total_pages + 1) %}
+                <li class="page-item {% if p == page %}active{% endif %}">
+                    <a class="page-link" href="/view_results/{{ busqueda_id }}?page={{ p }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+            {% if page < total_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="/view_results/{{ busqueda_id }}?page={{ page + 1 }}">Siguiente</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <a href="/download_csv/{{ busqueda_id }}" class="btn btn-primary mt-3">Descargar como CSV</a>
+    <a href="{{ url_for('stats', busqueda_id=busqueda_id) }}" class="btn btn-primary mt-3">Ver estadísticas</a>
+    <a href="/previous_results" class="btn btn-secondary mt-3">Volver a Búsquedas Anteriores</a>
+    
+    </div>
+
+
+{% endblock %}

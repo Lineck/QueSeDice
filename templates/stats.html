@@ -1,0 +1,94 @@
+{% extends  'base.html'%}
+
+{% block content%}
+
+
+    <div class="container mt-4">
+        <h1>Estadísticas para el término: {{ term }}</h1>
+        
+        <h2>Fecha de búsqueda: {{ fecha }}</h2>
+
+        {% for plataforma, stats in stats_por_plataforma.items() %}
+        <div class="mt-5">
+            <h2>{{ plataforma }}</h2>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Métrica</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in stats.items() %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Lienzo para el gráfico -->
+            <div  style="width: 500px; height: 500px;">
+                <canvas id="chart-{{ plataforma }}" ></canvas>
+            </div>
+            
+        </div>
+        {% endfor %}
+
+        <a href="{{ url_for('download_pdf', busqueda_id=busqueda_id) }}" class="btn btn-primary mt-3 p-1">Descargar estadísticas en PDF</a>
+        <a href="{{ url_for('view_results', busqueda_id=busqueda_id) }}" class="btn btn-secondary mt-3 p1">Volver a resultados</a>
+       
+
+    </div>
+
+    <!-- Script para generar gráficos -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            {% for plataforma, stats in stats_por_plataforma.items() %}
+            const ctx{{ loop.index }} = document.getElementById('chart-{{ plataforma }}').getContext('2d');
+            new Chart(ctx{{ loop.index }}, {
+                type: 'pie', // Puedes usar 'bar', 'line', etc.
+                data: {
+                    labels: ['Positivos', 'Negativos', 'Neutrales'],
+                    datasets: [{
+                        label: 'Distribución de Sentimientos',
+                        data: [
+                            {{ stats["Positivos"] }},
+                            {{ stats["Negativos"] }},
+                            {{ stats["Neutrales"] }}
+                        ],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Verde
+                            'rgba(255, 99, 132, 0.2)', // Rojo
+                            'rgba(201, 203, 207, 0.2)' // Gris
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(201, 203, 207, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribución de Sentimientos para {{ plataforma }}'
+                        }
+                    }
+                }
+            });
+            {% endfor %}
+        });
+    </script>
+
+
+
+{% endblock %}
+

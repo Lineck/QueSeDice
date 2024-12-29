@@ -1,0 +1,32 @@
+{% extends  'base.html'%}
+
+{% block content%}
+
+
+    <div class="container "> 
+        <h1>Búsquedas Anteriores</h1>
+        <table class="table table-bordered table-light">
+            <thead>
+                <tr>
+                    <th scope="col">Término</th>
+                    <th scope="col">Fecha</th>
+                </tr>
+            </thead>
+           {% for item in historial %}
+           <tr> 
+                
+                <td>
+                    
+                    <a  href="{{ url_for('view_results', busqueda_id=item.busqueda_id) }}">{{ item.term }} </a>
+                </td>
+                <td>{{ item.fecha }}</td> 
+            </tr>   
+            {% endfor %}
+        </table>
+        
+    </div>
+
+ 
+            
+
+{% endblock %}
