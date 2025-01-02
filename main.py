@@ -42,10 +42,16 @@ class TermForm(FlaskForm):
     def validate(self, extra_validators=None):
         if not super().validate(extra_validators):
             return False
+        
         if not any([self.youtube.data, self.twitter.data]):
-            self.errors.setdefault("_form", []).append("Debes seleccionar al menos una opción (YouTube o Twitter).")
+            self.youtube.errors.append("Debes seleccionar al menos una opción (YouTube o Twitter).")
             return False
+        
         return True
+
+
+
+
     
     
 def paginate_dataframe(df, page, per_page):
@@ -328,6 +334,8 @@ def index():
     if form.validate_on_submit():
         term = form.term.data
         print("Formulario válido")
+       
+
         print(f"youtube: {form.youtube.data}, twitter: {form.twitter.data}")
         return redirect(url_for('results', term=term, youtube=form.youtube.data, twitter=form.twitter.data))
     else:

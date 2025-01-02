@@ -1,4 +1,4 @@
-from transformers import AutoTokenizer, AutoModelForSequenceClassification,AutoConfig
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoConfig
 import re
 
 # Cargar modelo y tokenizador
@@ -18,10 +18,6 @@ def roberta(text):
     except Exception as e:
         print(f"Error procesando el texto: {e}")
         return None
-
-
-
-
 
 def preprocess(text):
     # Reemplazar etiquetas HTML de enlaces (incluyendo texto visible)

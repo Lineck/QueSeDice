@@ -43,10 +43,11 @@
           
           {{ form.submit(class="btn btn-primary w-100 fs-5")}}
         </div>
-          {% if form.errors['_form'] %}
-              <p class="error">{{ form.errors['_form'][0] }}</p>
-          {% endif %}
+        {% for error in form.youtube.errors %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endfor %}
 
+    
     </form>
 
   </div>
