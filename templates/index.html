@@ -1,18 +1,14 @@
 {% extends  'base.html'%}
 
 {% block content%}
-<div class="container mt-4">
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis officiis nam ab dolores veniam ipsum possimus sint aut aperiam similique nihil cupiditate architecto expedita voluptatibus, earum quasi commodi voluptate ut.</p>
-
-</div>
-<div class="container  "style="width: 500px;height:550px;" >
+<div class="container position-absolute top-50 start-50 translate-middle"style="width: 500px;height:350px;" >
   
-  <div class="mt-5">
-    <div class=" text-center mb-4" id="titulo-formulario mb-4">
+  <div >
+    <div class=" text-center mb-2" id="titulo-formulario mb-4">
       
-      <h2>BÚSQUEDA</h2>
+      <p class="fw-bold fs-2">BÚSQUEDA</p>
  
-      <p class="text-dark mb-4">Ingrese un termino a buscar entre 3 y 20 caracteres</p>
+      <p class="fs-5 mb-4">Ingrese un termino a buscar entre 3 y 20 caracteres</p>
     </div>
 
     <form   method="POST" data-netlify="true" action="#">
@@ -53,6 +49,10 @@
   </div>
   
 </div>
+<!-- <div class="container mt-4">
+  <p class="fs-5 position-absolute top-100 start-50 translate-middle">Este proyecto responde a problemáticas comunes, como la necesidad de evaluar la percepción pública sobre productos, servicios o personas, facilitando la toma de decisiones basada en datos objetivos. Las principales características funcionales del sistema incluyen la extracción de datos desde plataformas seleccionadas, el preprocesamiento de texto para eliminar ruido, el análisis de sentimientos utilizando modelos de inteligencia artificial como RoBERTa, y la generación de informes descargables en formatos CSV y PDF.</p>
+
+</div> -->
 
 
 

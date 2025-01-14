@@ -74,7 +74,7 @@ def style_sentimientos(row):
 
 def style_plataformas(row):
     if row["PLATAFORMA"] == "YouTube":
-        return f'<strong class="text-danger">{row["PLATAFORMA"]}</strong>'
+        return f'<strong class="text-info">{row["PLATAFORMA"]}</strong>'
     elif row["PLATAFORMA"] == "Twitter":
         return f'<strong class="text-primary">{row["PLATAFORMA"]}</strong>'
     return row["PLATAFORMA"]
@@ -136,6 +136,7 @@ def results(term=None, youtube=None, twitter=None):
         for dato in lista_datos:
             dato["FECHA"] = fecha_actual
             dato["BUSQUEDA_ID"] = busqueda_id  # Asociar los datos a esta búsqueda
+            
         collection.insert_many(lista_datos)
             
    

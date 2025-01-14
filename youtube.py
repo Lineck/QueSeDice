@@ -24,22 +24,7 @@ def buscar_videos(query, max_results=10):
         })
     return videos
 
-# # Paso 2: Extraer comentarios de un video
-# def obtener_comentarios(video_id, max_results=10):
-    
-#     response = youtube.commentThreads().list(
-#         part="snippet",
-#         videoId=video_id,
-#         maxResults=max_results
-#     ).execute()
-    
-#     comentarios = []
-#     for item in response['items']:
-#         comentario = item['snippet']['topLevelComment']['snippet']['textDisplay']
-#         autor = item['snippet']['topLevelComment']['snippet']['authorDisplayName']
-#         comentarios.append({"autor": autor, "comentario": comentario})
-#     return comentarios
-
+# Paso 2: Obtener comentarios de un video
 def obtener_comentarios(video_id, max_results=10):
     comentarios = []
     try:

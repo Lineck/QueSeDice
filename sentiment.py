@@ -9,9 +9,13 @@ config = AutoConfig.from_pretrained(MODEL)
 
 def roberta(text):
     try:
+        # El texto se tokeniza y se convierte en un formato numérico que el modelo puede procesar.
         encoded_text = tokenizer(text, return_tensors='pt')
+        # Procesar el texto con el modelo
         output = model(**encoded_text)
+        # Identificar el sentimiento predominante
         index_of_sentiment = output.logits.argmax().item()
+        # Convertir el índice a una etiqueta de sentimiento
         sentiment = config.id2label[index_of_sentiment]
 
         return sentiment
