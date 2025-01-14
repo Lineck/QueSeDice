@@ -34,7 +34,7 @@ collection = db["TablaResultado"]  # Nombre de la colección
 
 # Formulario
 class TermForm(FlaskForm):
-    term = StringField("Término a buscar", validators=[DataRequired(), Length(min=3, max=20)])
+    term = StringField("Término o frase a buscar", validators=[DataRequired(), Length(min=3, max=20)])
     submit = SubmitField("Buscar")
     youtube = BooleanField("YouTube")
     twitter = BooleanField("Twitter")
@@ -49,11 +49,7 @@ class TermForm(FlaskForm):
         
         return True
 
-
-
-
-    
-    
+ 
 def paginate_dataframe(df, page, per_page):
     start = (page - 1) * per_page
     end = start + per_page
@@ -253,7 +249,7 @@ def download_pdf(busqueda_id):
     pdf.setFont("Helvetica", 12)
 
     y = 750
-    pdf.drawString(200, y, f"Estadísticas para el término: {lista_datos[0]['TERMINO']}")
+    pdf.drawString(200, y, f"Estadísticas para la búsqueda: {lista_datos[0]['TERMINO']}")
     y -= 20
     pdf.drawString(200, y, f"Fecha de búsqueda: {fecha_busqueda}")
     y -= 60
