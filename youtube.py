@@ -25,7 +25,7 @@ def buscar_videos(query, max_results=10):
     return videos
 
 # Paso 2: Obtener comentarios de un video
-def obtener_comentarios(video_id, max_results=10):
+def obtener_comentarios(video_id):
     comentarios = []
     try:
         # Realiza la solicitud para obtener comentarios

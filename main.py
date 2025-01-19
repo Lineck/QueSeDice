@@ -100,12 +100,13 @@ def results(term=None, youtube=None, twitter=None):
             
             for comentario in comentarios:
                 texto = comentario['comentario'] 
-                           
+                usuario = comentario['autor']           
                 textos = preprocess(texto)
                 
                 sentimiento = roberta(textos)
                 lista_datos.append({                
                 "PLATAFORMA": "YouTube",
+                "USUARIO":usuario,
                 "TEXTO": texto,
                 "TERMINO": term,
                 "SENTIMIENTO": sentimiento
@@ -113,12 +114,13 @@ def results(term=None, youtube=None, twitter=None):
                 
     if twitter:        
         tweets = loop.run_until_complete(twitters(term))
-        # tweets = buscar_tweets(term)
+        
         for tweet in tweets:            
-            texto = preprocess(tweet)
+            texto = preprocess(tweet["tweets"])            
             sentimiento = roberta(texto)
             lista_datos.append({                
                 "PLATAFORMA": "Twitter",
+                "USUARIO": tweet["user"],
                 "TEXTO": texto,
                 "TERMINO": term,
                 "SENTIMIENTO": sentimiento
@@ -162,7 +164,7 @@ def view_results(busqueda_id):
         # Eliminar el campo '_id'
         for dato in lista_datos:
             dato.pop('_id', None)
-        df = pd.DataFrame(lista_datos,columns=["PLATAFORMA", "TEXTO", "SENTIMIENTO"])
+        df = pd.DataFrame(lista_datos,columns=["PLATAFORMA","USUARIO", "TEXTO", "SENTIMIENTO"])
         df["SENTIMIENTO"] = df.apply(style_sentimientos, axis=1) 
         df["PLATAFORMA"] = df.apply(style_plataformas, axis=1)
 
